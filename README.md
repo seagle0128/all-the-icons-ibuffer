@@ -17,6 +17,12 @@
 
 <!-- markdown-toc end -->
 
+Display icons for all buffers in ibuffer.
+
+This package is extracted from [Centaur
+Emacs](https://github.com/seagle0128/.emacs.d) and leverages
+[all-the-icons](https://github.com/domtronn/all-the-icons.el).
+
 ## Install
 
 ### Manual
@@ -38,6 +44,12 @@ From melpa, `M-x package-install RET all-the-icons-ibuffer RET`.
 Enjoy! :smile:
 
 ## Customize
+
+``` emacs-lisp
+;; A list of ways to display buffer lines with `all-the-icons'.
+;; See `ibuffer-formats' for details.
+all-the-icons-ibuffer-formats
+```
 
 ## Screenshots
 
