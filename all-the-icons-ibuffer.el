@@ -1,4 +1,4 @@
-;;; all-the-icons-ibuffer.el --- Display icons for all buffers in ibuffer.        -*- lexical-binding: t; -*-
+;;; all-the-icons-ibuffer.el --- Display icons for all buffers in ibuffer        -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020 Vincent Zhang
 
