@@ -41,7 +41,7 @@ Enjoy! :smile:
 
 ## Screenshots
 
-![all-the-icons-ibuffer](https://user-images.githubusercontent.com/140797/62999172-28333480-bea0-11e9-86a3-10ef1be54c16.png
+![all-the-icons-ibuffer](https://user-images.githubusercontent.com/140797/73564021-b1afe080-4499-11ea-87da-e2fa32d18f53.png
 "icons with ibuffer")
 
 ## Donate
