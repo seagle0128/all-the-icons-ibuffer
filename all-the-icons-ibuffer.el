@@ -72,7 +72,7 @@ See `ibuffer-formats' for details."
 (defvar all-the-icons-ibuffer-old-formats ibuffer-formats)
 
 ;; For alignment, the size of the name field should be the width of an icon
-;;;###autoload (autoload 'ibuffer-make-column-icon "all-the-icons-ibuffer")
+;;;###autoload(autoload 'ibuffer-make-column-icon "all-the-icons-ibuffer")
 (define-ibuffer-column icon (:name "  ")
   (let ((icon (if (and (buffer-file-name)
                        (all-the-icons-auto-mode-match?))
