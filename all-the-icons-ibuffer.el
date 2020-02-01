@@ -47,7 +47,8 @@
 
 (defgroup all-the-icons-ibuffer nil
   "Display icons for all buffers in ibuffer."
-  :group 'markdown
+  :group 'all-the-icons
+  :group 'ibuffer
   :link '(url-link :tag "Homepage" "https://github.com/seagle0128/all-the-icons-ibuffer"))
 
 (defcustom all-the-icons-ibuffer-formats
@@ -63,6 +64,7 @@
   "A list of ways to display buffer lines with `all-the-icons'.
 
 See `ibuffer-formats' for details."
+  :group 'all-the-icons-ibuffer
   :type '(repeat sexp))
 
 
