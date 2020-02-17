@@ -51,6 +51,11 @@
   :group 'ibuffer
   :link '(url-link :tag "Homepage" "https://github.com/seagle0128/all-the-icons-ibuffer"))
 
+(defcustom all-the-icons-ibuffer-human-readable-size t
+  "Use human readable file size in ibuffer."
+  :group 'all-the-icons-ibuffer
+  :type 'boolean)
+
 (defcustom all-the-icons-ibuffer-formats
   `((mark modified read-only ,(if (>= emacs-major-version 26) 'locked "")
           ;; Here you may adjust by replacing :right with :center or :left
@@ -58,8 +63,9 @@
           " " (icon 2 2 :left :elide)
           ,(propertize " " 'display `(space :align-to 8))
           (name 18 18 :left :elide)
-          " " (size 9 -1 :right)
-          " " (mode 16 16 :left :elide) " " filename-and-process)
+          " " (size-h 9 -1 :right)
+          " " (mode 16 16 :left :elide)
+          " " filename-and-process)
     (mark " " (name 16 -1) " " filename))
   "A list of ways to display buffer lines with `all-the-icons'.
 
@@ -69,7 +75,25 @@ See `ibuffer-formats' for details."
 
 
 
-(defvar all-the-icons-ibuffer-old-formats ibuffer-formats)
+;; Human readable file size for ibuffer
+;;;###autoload(autoload 'ibuffer-make-column-size-h "all-the-icons-ibuffer")
+(define-ibuffer-column size-h
+  (:name "Size"
+   :inline t
+   :header-mouse-map ibuffer-size-header-map
+   :summarizer
+   (lambda (column-strings)
+     (let ((total 0))
+       (dolist (string column-strings)
+	     (setq total
+	           ;; like, ewww ...
+	           (+ (float (string-to-number string))
+		          total)))
+       (format "%.0f" total))))
+  (let ((size (buffer-size)))
+    (if all-the-icons-ibuffer-human-readable-size
+        (file-size-human-readable size)
+      (format "%s" (buffer-size)))))
 
 ;; For alignment, the size of the name field should be the width of an icon
 ;;;###autoload(autoload 'ibuffer-make-column-icon "all-the-icons-ibuffer")
@@ -81,6 +105,8 @@ See `ibuffer-formats' for details."
     (if (symbolp icon)
         (setq icon (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0))
       icon)))
+
+(defvar all-the-icons-ibuffer-old-formats ibuffer-formats)
 
 ;;;###autoload
 (define-minor-mode all-the-icons-ibuffer-mode

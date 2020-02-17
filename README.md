@@ -49,6 +49,9 @@ Enjoy! :smile:
 ## Customize
 
 ``` emacs-lisp
+;; Use human readable file size in ibuffer.
+(setq  all-the-icons-ibuffer-human-readable-size t)
+
 ;; A list of ways to display buffer lines with `all-the-icons'.
 ;; See `ibuffer-formats' for details.
 all-the-icons-ibuffer-formats
