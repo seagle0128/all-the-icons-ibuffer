@@ -4,7 +4,7 @@
 
 ;; Author: Vincent Zhang <seagle0128@gmail.com>
 ;; Homepage: https://github.com/seagle0128/all-the-icons-ibuffer
-;; Version: 1.1.0
+;; Version: 1.2.0
 ;; Package-Requires: ((emacs "24.4") (all-the-icons "2.2.0"))
 ;; Keywords: convenience, icons, ibuffer
 
@@ -100,10 +100,14 @@ See `ibuffer-formats' for details."
 (define-ibuffer-column icon (:name "  ")
   (let ((icon (if (and (buffer-file-name)
                        (all-the-icons-auto-mode-match?))
-                  (all-the-icons-icon-for-file (file-name-nondirectory (buffer-file-name)) :v-adjust -0.05)
+                  (all-the-icons-icon-for-file
+                   (file-name-nondirectory (buffer-file-name))
+                   :v-adjust -0.05)
                 (all-the-icons-icon-for-mode major-mode :v-adjust -0.05))))
     (if (symbolp icon)
-        (setq icon (all-the-icons-faicon "file-o" :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0))
+        (setq icon (all-the-icons-faicon
+                    "file-o"
+                    :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0))
       icon)))
 
 (defvar all-the-icons-ibuffer-old-formats ibuffer-formats)
