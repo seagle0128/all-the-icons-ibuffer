@@ -105,9 +105,10 @@ See `ibuffer-formats' for details."
                    :v-adjust -0.05)
                 (all-the-icons-icon-for-mode major-mode :v-adjust -0.05))))
     (if (symbolp icon)
-        (setq icon (all-the-icons-faicon
-                    "file-o"
-                    :face 'all-the-icons-dsilver :height 0.8 :v-adjust 0.0))
+        (setq icon (all-the-icons-faicon "file-o"
+                                         :face 'all-the-icons-dsilver
+                                         :height 0.8
+                                         :v-adjust 0.0))
       icon)))
 
 (defvar all-the-icons-ibuffer-old-formats ibuffer-formats)
