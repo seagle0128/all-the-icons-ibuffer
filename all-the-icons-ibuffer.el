@@ -107,7 +107,6 @@ See `ibuffer-formats' for details."
     (if (symbolp icon)
         (setq icon (all-the-icons-faicon "file-o"
                                          :face 'all-the-icons-dsilver
-                                         :height 0.8
                                          :v-adjust 0.0))
       icon)))
 
