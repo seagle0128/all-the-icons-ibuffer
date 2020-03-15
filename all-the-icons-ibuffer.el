@@ -56,7 +56,7 @@
   :group 'all-the-icons-ibuffer
   :type 'number)
 
-(defcustom all-the-icons-ibuffer-icon-v-adjust 0.01
+(defcustom all-the-icons-ibuffer-icon-v-adjust 0.0
   "The default vertical adjustment of the icon in ibuffer."
   :group 'all-the-icons-ibuffer
   :type 'number)
