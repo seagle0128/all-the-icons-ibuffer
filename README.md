@@ -50,6 +50,12 @@ Enjoy! :smile:
 ## Customize
 
 ``` emacs-lisp
+;; The default icon size in ibuffer.
+(setq all-the-icons-ibuffer-icon-size 1.0)
+
+;; The default vertical adjustment of the icon in ibuffer.
+(setq all-the-icons-ibuffer-icon-v-adjust 0.01)
+
 ;; Use human readable file size in ibuffer.
 (setq  all-the-icons-ibuffer-human-readable-size t)
 

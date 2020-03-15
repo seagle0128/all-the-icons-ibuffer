@@ -51,6 +51,16 @@
   :group 'ibuffer
   :link '(url-link :tag "Homepage" "https://github.com/seagle0128/all-the-icons-ibuffer"))
 
+(defcustom all-the-icons-ibuffer-icon-size 1.0
+  "The default icon size in ibuffer."
+  :group 'all-the-icons-ibuffer
+  :type 'number)
+
+(defcustom all-the-icons-ibuffer-icon-v-adjust 0.01
+  "The default vertical adjustment of the icon in ibuffer."
+  :group 'all-the-icons-ibuffer
+  :type 'number)
+
 (defcustom all-the-icons-ibuffer-human-readable-size t
   "Use human readable file size in ibuffer."
   :group 'all-the-icons-ibuffer
@@ -100,14 +110,17 @@ See `ibuffer-formats' for details."
 (define-ibuffer-column icon (:name "  ")
   (let ((icon (if (and (buffer-file-name)
                        (all-the-icons-auto-mode-match?))
-                  (all-the-icons-icon-for-file
-                   (file-name-nondirectory (buffer-file-name))
-                   :v-adjust -0.05)
-                (all-the-icons-icon-for-mode major-mode :v-adjust -0.05))))
+                  (all-the-icons-icon-for-file (file-name-nondirectory (buffer-file-name))
+                                               :height all-the-icons-ibuffer-icon-size
+                                               :v-adjust all-the-icons-ibuffer-icon-v-adjust)
+                (all-the-icons-icon-for-mode major-mode
+                                             :height all-the-icons-ibuffer-icon-size
+                                             :v-adjust all-the-icons-ibuffer-icon-v-adjust))))
     (if (symbolp icon)
         (setq icon (all-the-icons-faicon "file-o"
                                          :face 'all-the-icons-dsilver
-                                         :v-adjust 0.0))
+                                         :height all-the-icons-ibuffer-icon-size
+                                         :v-adjust all-the-icons-ibuffer-icon-v-adjust))
       icon)))
 
 (defvar all-the-icons-ibuffer-old-formats ibuffer-formats)
