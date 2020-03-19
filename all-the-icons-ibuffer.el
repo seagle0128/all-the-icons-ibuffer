@@ -108,18 +108,17 @@ See `ibuffer-formats' for details."
 ;; For alignment, the size of the name field should be the width of an icon
 ;;;###autoload(autoload 'ibuffer-make-column-icon "all-the-icons-ibuffer")
 (define-ibuffer-column icon (:name "  ")
-  (let ((icon (if (and (buffer-file-name)
-                       (all-the-icons-auto-mode-match?))
+  (let ((icon (if (and (buffer-file-name) (all-the-icons-auto-mode-match?))
                   (all-the-icons-icon-for-file (file-name-nondirectory (buffer-file-name))
                                                :height all-the-icons-ibuffer-icon-size
                                                :v-adjust all-the-icons-ibuffer-icon-v-adjust)
                 (all-the-icons-icon-for-mode major-mode
                                              :height all-the-icons-ibuffer-icon-size
                                              :v-adjust all-the-icons-ibuffer-icon-v-adjust))))
-    (if (symbolp icon)
+    (if (or (null icon) (symbolp icon))
         (setq icon (all-the-icons-faicon "file-o"
                                          :face 'all-the-icons-dsilver
-                                         :height all-the-icons-ibuffer-icon-size
+                                         :height (* 0.9 all-the-icons-ibuffer-icon-size)
                                          :v-adjust all-the-icons-ibuffer-icon-v-adjust))
       icon)))
 
