@@ -51,6 +51,18 @@
   :group 'ibuffer
   :link '(url-link :tag "Homepage" "https://github.com/seagle0128/all-the-icons-ibuffer"))
 
+(defface all-the-icons-ibuffer-icon-face
+  '((t (:inherit default)))
+  "Face used for the icons while `all-the-icons-ibuffer-color-icon' is nil."
+  :group 'all-the-icons-ibuffer)
+
+(defcustom all-the-icons-ibuffer-color-icon t
+  "Whether display the colorful icons.
+
+It respects `all-the-icons-color-icons'."
+  :group 'all-the-icons-ibuffer
+  :type 'boolean)
+
 (defcustom all-the-icons-ibuffer-icon-size 1.0
   "The default icon size in ibuffer."
   :group 'all-the-icons-ibuffer
@@ -117,10 +129,18 @@ See `ibuffer-formats' for details."
                                              :v-adjust all-the-icons-ibuffer-icon-v-adjust))))
     (if (or (null icon) (symbolp icon))
         (setq icon (all-the-icons-faicon "file-o"
-                                         :face 'all-the-icons-dsilver
+                                         :face (if all-the-icons-ibuffer-color-icon
+                                                   'all-the-icons-dsilver
+                                                 'all-the-icons-ibuffer-icon-face)
                                          :height (* 0.9 all-the-icons-ibuffer-icon-size)
                                          :v-adjust all-the-icons-ibuffer-icon-v-adjust))
-      icon)))
+      (let* ((props (get-text-property 0 'face icon))
+             (family (plist-get props :family))
+             (face (if all-the-icons-ibuffer-color-icon
+                       (plist-get props :inherit)
+                     'all-the-icons-ibuffer-icon-face))
+             (new-face `(:inherit ,face :family ,family)))
+        (propertize icon 'face new-face)))))
 
 (defvar all-the-icons-ibuffer-old-formats ibuffer-formats)
 
