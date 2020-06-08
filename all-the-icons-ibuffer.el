@@ -137,7 +137,7 @@ See `ibuffer-formats' for details."
       (let* ((props (get-text-property 0 'face icon))
              (family (plist-get props :family))
              (face (if all-the-icons-ibuffer-color-icon
-                       (plist-get props :inherit)
+                       (or (plist-get props :inherit) props)
                      'all-the-icons-ibuffer-icon-face))
              (new-face `(:inherit ,face :family ,family)))
         (propertize icon 'face new-face)))))
