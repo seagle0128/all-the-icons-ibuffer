@@ -139,7 +139,9 @@ See `ibuffer-formats' for details."
              (face (if all-the-icons-ibuffer-color-icon
                        (or (plist-get props :inherit) props)
                      'all-the-icons-ibuffer-icon-face))
-             (new-face `(:inherit ,face :family ,family)))
+             (new-face `(:inherit ,face
+                         :family ,family
+                         :height ,all-the-icons-ibuffer-icon-size)))
         (propertize icon 'face new-face)))))
 
 (defvar all-the-icons-ibuffer-old-formats ibuffer-formats)
