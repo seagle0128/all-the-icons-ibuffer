@@ -62,6 +62,11 @@ Enjoy! :smile:
 ;; A list of ways to display buffer lines with `all-the-icons'.
 ;; See `ibuffer-formats' for details.
 all-the-icons-ibuffer-formats
+
+;; Slow Rendering
+;; If you experience a slow down in performance when rendering multiple icons simultaneously,
+;; you can try setting the following variable
+(setq inhibit-compacting-font-caches t)
 ```
 
 ## Screenshots
