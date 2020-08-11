@@ -1,6 +1,6 @@
 # all-the-icons-ibuffer
 
-[![Build Status](https://travis-ci.org/seagle0128/all-the-icons-ibuffer.svg?branch=master)](https://travis-ci.org/seagle0128/all-the-icons-ibuffer)
+[![Build Status](https://github.com/seagle0128/all-the-icons-ibuffer/workflows/CI/badge.svg?branch=master)](https://github.com/seagle0128/all-the-icons-ibuffer/actions)
 [![MELPA](https://melpa.org/packages/all-the-icons-ibuffer-badge.svg)](https://melpa.org/#/all-the-icons-ibuffer)
 [![MELPA Stable](https://stable.melpa.org/packages/all-the-icons-ibuffer-badge.svg)](https://stable.melpa.org/#/all-the-icons-ibuffer)
 [![License](http://img.shields.io/:license-gpl3-blue.svg)](LICENSE)
