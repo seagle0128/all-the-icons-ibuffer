@@ -86,8 +86,8 @@ It respects `all-the-icons-color-icons'."
           ,(propertize " " 'display `(space :align-to 8))
           (name 18 18 :left :elide)
           " " (size-h 9 -1 :right)
-          " " (mode 16 16 :left :elide)
-          " " filename-and-process)
+          " " (mode+ 16 16 :left :elide)
+          " " filename-and-process+)
     (mark " " (name 16 -1) " " filename))
   "A list of ways to display buffer lines with `all-the-icons'.
 
@@ -97,29 +97,10 @@ See `ibuffer-formats' for details."
 
 
 
-;; Human readable file size for ibuffer
-;;;###autoload(autoload 'ibuffer-make-column-size-h "all-the-icons-ibuffer")
-(define-ibuffer-column size-h
-  (:name "Size"
-   :inline t
-   :header-mouse-map ibuffer-size-header-map
-   :summarizer
-   (lambda (column-strings)
-     (let ((total 0))
-       (dolist (string column-strings)
-	     (setq total
-	           ;; like, ewww ...
-	           (+ (float (string-to-number string))
-		          total)))
-       (format "%.0f" total))))
-  (let ((size (buffer-size)))
-    (if all-the-icons-ibuffer-human-readable-size
-        (file-size-human-readable size)
-      (format "%s" (buffer-size)))))
-
 ;; For alignment, the size of the name field should be the width of an icon
 ;;;###autoload(autoload 'ibuffer-make-column-icon "all-the-icons-ibuffer")
-(define-ibuffer-column icon (:name "  ")
+(define-ibuffer-column icon
+  (:name "  " :inline t)
   (let ((icon (if (and (buffer-file-name) (all-the-icons-auto-mode-match?))
                   (all-the-icons-icon-for-file (file-name-nondirectory (buffer-file-name))
                                                :height all-the-icons-ibuffer-icon-size
@@ -143,6 +124,70 @@ See `ibuffer-formats' for details."
                          :family ,family
                          :height ,all-the-icons-ibuffer-icon-size)))
         (propertize icon 'face new-face)))))
+
+;; Human readable file size for ibuffer
+;;;###autoload(autoload 'ibuffer-make-column-size-h "all-the-icons-ibuffer")
+(define-ibuffer-column size-h
+  (:name "Size"
+   :inline t
+   :props ('font-lock-face 'font-lock-comment-face)
+   :header-mouse-map ibuffer-size-header-map
+   :summarizer
+   (lambda (column-strings)
+     (let ((total 0))
+       (dolist (string column-strings)
+	     (setq total
+	           ;; like, ewww ...
+	           (+ (float (string-to-number string))
+		          total)))
+       (format "%.0f" total))))
+  (let ((size (buffer-size)))
+    (if all-the-icons-ibuffer-human-readable-size
+        (file-size-human-readable size)
+      (format "%s" (buffer-size)))))
+
+;;;###autoload(autoload 'ibuffer-make-column-mode+ "all-the-icons-ibuffer")
+(define-ibuffer-column mode+
+  (:name "Mode"
+   :inline t
+   :header-mouse-map ibuffer-mode-header-map
+   :props ('font-lock-face 'font-lock-keyword-face
+                           'mouse-face 'highlight
+	                       'keymap ibuffer-mode-name-map
+	                       'help-echo "mouse-2: filter by this mode"))
+  (format-mode-line mode-name nil nil (current-buffer)))
+
+;;;###autoload(autoload 'ibuffer-make-column-filename-and-process+ "all-the-icons-ibuffer")
+(define-ibuffer-column filename-and-process+
+  (:name "Filename/Process"
+   :props ('font-lock-face 'font-lock-string-face)
+   :header-mouse-map ibuffer-filename/process-header-map
+   :summarizer
+   (lambda (strings)
+     (setq strings (delete "" strings))
+     (let ((procs 0)
+	       (files 0))
+       (dolist (string strings)
+         (when (get-text-property 1 'ibuffer-process string)
+           (setq procs (1+ procs)))
+	     (setq files (1+ files)))
+       (concat (cond ((zerop files) "No files")
+		             ((= 1 files) "1 file")
+		             (t (format "%d files" files)))
+	           ", "
+	           (cond ((zerop procs) "no processes")
+		             ((= 1 procs) "1 process")
+		             (t (format "%d processes" procs)))))))
+  (let ((proc (get-buffer-process buffer))
+	    (filename (ibuffer-make-column-filename buffer mark)))
+    (if proc
+	    (concat (propertize (format "(%s %s)" proc (process-status proc))
+			                'font-lock-face 'italic
+                            'ibuffer-process proc)
+		        (if (> (length filename) 0)
+		            (format " %s" filename)
+		          ""))
+      filename)))
 
 (defvar all-the-icons-ibuffer-old-formats ibuffer-formats)
 
