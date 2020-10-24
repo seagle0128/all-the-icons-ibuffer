@@ -71,7 +71,7 @@ all-the-icons-ibuffer-formats
 
 ## Screenshots
 
-![all-the-icons-ibuffer](https://user-images.githubusercontent.com/140797/73564021-b1afe080-4499-11ea-87da-e2fa32d18f53.png
+![all-the-icons-ibuffer](https://user-images.githubusercontent.com/140797/97093181-65867b00-167c-11eb-816c-0a96d69dcb94.png
 "icons with ibuffer")
 
 ## Donate
