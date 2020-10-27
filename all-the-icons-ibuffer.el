@@ -144,7 +144,7 @@ See `ibuffer-formats' for details."
   (let ((size (buffer-size)))
     (if all-the-icons-ibuffer-human-readable-size
         (file-size-human-readable size)
-      (format "%s" (buffer-size)))))
+      (format "%s" size))))
 
 ;;;###autoload(autoload 'ibuffer-make-column-mode+ "all-the-icons-ibuffer")
 (define-ibuffer-column mode+
