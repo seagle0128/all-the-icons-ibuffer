@@ -97,6 +97,23 @@ See `ibuffer-formats' for details."
 
 
 
+(defun all-the-icons-ibuffer--file-size-human-readable-to-bytes (file-size &optional flavor)
+  "Convert a human-readable file size string into bytes."
+  (let ((power (if (or (null flavor) (eq flavor 'iec))
+		           1024.0
+		         1000.0))
+	    (prefixes '("k" "M" "G" "T" "P" "E" "Z" "Y"))
+	    (iterator 0))
+	(catch 'bytes
+	  (while
+	      (cond
+	       ((equal iterator 8)
+		    (throw 'bytes (* (string-to-number file-size) (expt power 0))))
+	       ((string-match (elt prefixes iterator) file-size)
+		    (throw 'bytes (* (string-to-number file-size) (expt power (1+ iterator)))))
+	       (t
+		    (setq iterator (1+ iterator))))))))
+
 ;; For alignment, the size of the name field should be the width of an icon
 ;;;###autoload(autoload 'ibuffer-make-column-icon "all-the-icons-ibuffer")
 (define-ibuffer-column icon
@@ -138,9 +155,11 @@ See `ibuffer-formats' for details."
        (dolist (string column-strings)
 	     (setq total
 	           ;; like, ewww ...
-	           (+ (float (string-to-number string))
+	           (+ (float (all-the-icons-ibuffer--file-size-human-readable-to-bytes string))
 		          total)))
-       (format "%.0f" total))))
+       (if all-the-icons-ibuffer-human-readable-size
+           (file-size-human-readable total)
+         (format "%0.f" total)))))
   (let ((size (buffer-size)))
     (if all-the-icons-ibuffer-human-readable-size
         (file-size-human-readable size)
