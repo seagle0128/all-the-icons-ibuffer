@@ -115,7 +115,6 @@ See `ibuffer-formats' for details."
 		    (setq iterator (1+ iterator))))))))
 
 ;; For alignment, the size of the name field should be the width of an icon
-;;;###autoload(autoload 'ibuffer-make-column-icon "all-the-icons-ibuffer")
 (define-ibuffer-column icon
   (:name "  " :inline t)
   (let ((icon (if (and (buffer-file-name) (all-the-icons-auto-mode-match?))
@@ -143,7 +142,6 @@ See `ibuffer-formats' for details."
         (propertize icon 'face new-face)))))
 
 ;; Human readable file size for ibuffer
-;;;###autoload(autoload 'ibuffer-make-column-size-h "all-the-icons-ibuffer")
 (define-ibuffer-column size-h
   (:name "Size"
    :inline t
@@ -165,7 +163,6 @@ See `ibuffer-formats' for details."
         (file-size-human-readable size)
       (format "%s" size))))
 
-;;;###autoload(autoload 'ibuffer-make-column-mode+ "all-the-icons-ibuffer")
 (define-ibuffer-column mode+
   (:name "Mode"
    :inline t
@@ -176,7 +173,6 @@ See `ibuffer-formats' for details."
 	                       'help-echo "mouse-2: filter by this mode"))
   (format-mode-line mode-name nil nil (current-buffer)))
 
-;;;###autoload(autoload 'ibuffer-make-column-filename-and-process+ "all-the-icons-ibuffer")
 (define-ibuffer-column filename-and-process+
   (:name "Filename/Process"
    :props ('font-lock-face 'font-lock-string-face)
