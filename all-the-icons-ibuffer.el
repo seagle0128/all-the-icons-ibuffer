@@ -56,6 +56,11 @@
   "Face used for the icons while `all-the-icons-ibuffer-color-icon' is nil."
   :group 'all-the-icons-ibuffer)
 
+(defface all-the-icons-ibuffer-dir-face
+  '((t (:inherit font-lock-doc-face)))
+  "Face used for the directory icon."
+  :group 'all-the-icons-ibuffer)
+
 (defcustom all-the-icons-ibuffer-color-icon t
   "Whether display the colorful icons.
 
@@ -117,13 +122,18 @@ See `ibuffer-formats' for details."
 ;; For alignment, the size of the name field should be the width of an icon
 (define-ibuffer-column icon
   (:name "  " :inline t)
-  (let ((icon (if (and (buffer-file-name) (all-the-icons-auto-mode-match?))
-                  (all-the-icons-icon-for-file (file-name-nondirectory (buffer-file-name))
-                                               :height all-the-icons-ibuffer-icon-size
-                                               :v-adjust all-the-icons-ibuffer-icon-v-adjust)
-                (all-the-icons-icon-for-mode major-mode
-                                             :height all-the-icons-ibuffer-icon-size
-                                             :v-adjust all-the-icons-ibuffer-icon-v-adjust))))
+  (let ((icon (cond ((and (buffer-file-name) (all-the-icons-auto-mode-match?))
+                     (all-the-icons-icon-for-file (file-name-nondirectory (buffer-file-name))
+                                                  :height all-the-icons-ibuffer-icon-size
+                                                  :v-adjust all-the-icons-ibuffer-icon-v-adjust))
+                    ((eq major-mode 'dired-mode)
+                     (all-the-icons-icon-for-dir (buffer-name)
+                                                 :height all-the-icons-ibuffer-icon-size
+                                                 :v-adjust all-the-icons-ibuffer-icon-v-adjust
+                                                 :face 'all-the-icons-ibuffer-dir-face))
+                    (t (all-the-icons-icon-for-mode major-mode
+                                                    :height all-the-icons-ibuffer-icon-size
+                                                    :v-adjust all-the-icons-ibuffer-icon-v-adjust)))))
     (if (or (null icon) (symbolp icon))
         (setq icon (all-the-icons-faicon "file-o"
                                          :face (if all-the-icons-ibuffer-color-icon
