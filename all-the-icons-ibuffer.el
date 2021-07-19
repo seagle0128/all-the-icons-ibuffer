@@ -146,9 +146,7 @@ See `ibuffer-formats' for details."
              (face (if all-the-icons-ibuffer-color-icon
                        (or (plist-get props :inherit) props)
                      'all-the-icons-ibuffer-icon-face))
-             (new-face `(:inherit ,face
-                         :family ,family
-                         :height ,all-the-icons-ibuffer-icon-size)))
+             (new-face `(:inherit ,face :family ,family)))
         (propertize icon 'face new-face)))))
 
 ;; Human readable file size for ibuffer
