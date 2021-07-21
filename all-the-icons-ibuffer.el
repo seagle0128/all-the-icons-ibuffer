@@ -87,8 +87,8 @@ It respects `all-the-icons-color-icons'."
   `((mark modified read-only ,(if (>= emacs-major-version 26) 'locked "")
           ;; Here you may adjust by replacing :right with :center or :left
           ;; According to taste, if you want the icon further from the name
-          " " (icon 2 2 :left :elide)
-          ,(propertize " " 'display `(space :align-to 8))
+          " " ,(if (display-graphic-p) '(icon 2 2 :left :elide) "")
+          ,(if (display-graphic-p) (propertize " " 'display `(space :align-to 8)) "")
           (name 18 18 :left :elide)
           " " (size-h 9 -1 :right)
           " " (mode+ 16 16 :left :elide)
