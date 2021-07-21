@@ -183,7 +183,7 @@ See `ibuffer-formats' for details."
 
 (define-ibuffer-column filename-and-process+
   (:name "Filename/Process"
-   :props ('font-lock-face 'font-lock-string-face)
+   :props ('font-lock-face 'completions-annotations)
    :header-mouse-map ibuffer-filename/process-header-map
    :summarizer
    (lambda (strings)
