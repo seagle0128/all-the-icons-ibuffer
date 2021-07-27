@@ -61,6 +61,11 @@
   "Face used for the directory icon."
   :group 'all-the-icons-ibuffer)
 
+(defcustom all-the-icons-ibuffer-icon t
+  "Whether display the icons."
+  :group 'all-the-icons-ibuffer
+  :type 'boolean)
+
 (defcustom all-the-icons-ibuffer-color-icon t
   "Whether display the colorful icons.
 
@@ -87,8 +92,14 @@ It respects `all-the-icons-color-icons'."
   `((mark modified read-only ,(if (>= emacs-major-version 26) 'locked "")
           ;; Here you may adjust by replacing :right with :center or :left
           ;; According to taste, if you want the icon further from the name
-          " " ,(if (display-graphic-p) '(icon 2 2 :left :elide) "")
-          ,(if (display-graphic-p) (propertize " " 'display `(space :align-to 8)) "")
+          " " ,(if (and (display-graphic-p)
+                        all-the-icons-ibuffer-icon)
+                   '(icon 2 2 :left :elide)
+                 "")
+          ,(if (and (display-graphic-p)
+                    all-the-icons-ibuffer-icon)
+               (propertize " " 'display `(space :align-to 8))
+             "")
           (name 18 18 :left :elide)
           " " (size-h 9 -1 :right)
           " " (mode+ 16 16 :left :elide)

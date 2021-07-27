@@ -50,6 +50,14 @@ Enjoy! :smile:
 ## Customize
 
 ``` emacs-lisp
+
+;; Whether display the icons.
+(setq all-the-icons-ibuffer-icon t)
+
+;; Whether display the colorful icons.
+;; It respects `all-the-icons-color-icons'.
+(setq all-the-icons-ibuffer-color-icon t)
+
 ;; The default icon size in ibuffer.
 (setq all-the-icons-ibuffer-icon-size 1.0)
 
