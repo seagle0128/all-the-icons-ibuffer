@@ -1,7 +1,7 @@
 # all-the-icons-ibuffer
 
 [![Build Status](https://github.com/seagle0128/all-the-icons-ibuffer/workflows/CI/badge.svg?branch=master)](https://github.com/seagle0128/all-the-icons-ibuffer/actions)
-[![Release Tag](https://img.shields.io/github/tag/seagle0128/all-the-icons-ibuffer.svg?label=Release)](https://github.com/seagle0128/.emacs.d/releases/latest)
+[![Release Tag](https://img.shields.io/github/tag/seagle0128/all-the-icons-ibuffer.svg?label=Release)](https://github.com/seagle0128/all-the-icons-buffer/releases/latest)
 [![License](http://img.shields.io/:License-GPL3-blue.svg)](License)
 [![MELPA](https://melpa.org/packages/all-the-icons-ibuffer-badge.svg)](https://melpa.org/#/all-the-icons-ibuffer)
 [![MELPA Stable](https://stable.melpa.org/packages/all-the-icons-ibuffer-badge.svg)](https://stable.melpa.org/#/all-the-icons-ibuffer)
