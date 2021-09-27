@@ -61,6 +61,21 @@
   "Face used for the directory icon."
   :group 'all-the-icons-ibuffer)
 
+(defface all-the-icons-ibuffer-size-face
+  '((t (:inherit font-lock-comment-face)))
+  "Face used for the size."
+  :group 'all-the-icons-ibuffer)
+
+(defface all-the-icons-ibuffer-mode-face
+  '((t (:inherit font-lock-keyword-face)))
+  "Face used for the major mode."
+  :group 'all-the-icons-ibuffer)
+
+(defface all-the-icons-ibuffer-file-face
+  '((t (:inherit font-lock-comment-face)))
+  "Face used for the filename/process."
+  :group 'all-the-icons-ibuffer)
+
 (defcustom all-the-icons-ibuffer-icon t
   "Whether display the icons."
   :group 'all-the-icons-ibuffer
@@ -164,7 +179,7 @@ See `ibuffer-formats' for details."
 (define-ibuffer-column size-h
   (:name "Size"
    :inline t
-   :props ('font-lock-face 'font-lock-comment-face)
+   :props ('font-lock-face 'all-the-icons-ibuffer-size-face)
    :header-mouse-map ibuffer-size-header-map
    :summarizer
    (lambda (column-strings)
@@ -186,7 +201,7 @@ See `ibuffer-formats' for details."
   (:name "Mode"
    :inline t
    :header-mouse-map ibuffer-mode-header-map
-   :props ('font-lock-face 'font-lock-keyword-face
+   :props ('font-lock-face 'all-the-icons-ibuffer-mode-face
                            'mouse-face 'highlight
 	                       'keymap ibuffer-mode-name-map
 	                       'help-echo "mouse-2: filter by this mode"))
@@ -194,7 +209,7 @@ See `ibuffer-formats' for details."
 
 (define-ibuffer-column filename-and-process+
   (:name "Filename/Process"
-   :props ('font-lock-face 'completions-annotations)
+   :props ('font-lock-face 'all-the-icons-ibuffer-file-face)
    :header-mouse-map ibuffer-filename/process-header-map
    :summarizer
    (lambda (strings)
