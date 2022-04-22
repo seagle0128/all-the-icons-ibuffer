@@ -107,14 +107,27 @@ It respects `all-the-icons-color-icons'."
   `((mark modified read-only ,(if (>= emacs-major-version 26) 'locked "")
           ;; Here you may adjust by replacing :right with :center or :left
           ;; According to taste, if you want the icon further from the name
-          " " ,(if (and (display-graphic-p)
-                        all-the-icons-ibuffer-icon)
+          " " ,(if all-the-icons-ibuffer-icon
                    '(icon 2 2 :left :elide)
                  "")
-          ,(if (and (display-graphic-p)
-                    all-the-icons-ibuffer-icon)
+          ,(if all-the-icons-ibuffer-icon
                (propertize " " 'display `(space :align-to 8))
              "")
+          (name 18 18 :left :elide)
+          " " (size-h 9 -1 :right)
+          " " (mode+ 16 16 :left :elide)
+          " " filename-and-process+)
+    (mark " " (name 16 -1) " " filename))
+  "A list of ways to display buffer lines with `all-the-icons'.
+
+See `ibuffer-formats' for details."
+  :group 'all-the-icons-ibuffer
+  :type '(repeat sexp))
+
+(defcustom all-the-icons-ibuffer-formats-simple
+  `((mark modified read-only ,(if (>= emacs-major-version 26) 'locked "")
+          ;; Here you may adjust by replacing :right with :center or :left
+          ;; According to taste, if you want the icon further from the name
           (name 18 18 :left :elide)
           " " (size-h 9 -1 :right)
           " " (mode+ 16 16 :left :elide)
@@ -244,10 +257,12 @@ See `ibuffer-formats' for details."
 (define-minor-mode all-the-icons-ibuffer-mode
   "Display icons for all buffers in ibuffer."
   :lighter nil
-  :global t
-  (if all-the-icons-ibuffer-mode
-      (setq ibuffer-formats all-the-icons-ibuffer-formats)
-    (setq ibuffer-formats all-the-icons-ibuffer-old-formats)))
+  (when (derived-mode-p 'ibuffer-mode)
+    (if all-the-icons-ibuffer-mode
+        (if (display-graphic-p)
+            (setq-local ibuffer-formats all-the-icons-ibuffer-formats)
+          (setq-local ibuffer-formats all-the-icons-ibuffer-formats-simple))
+      (setq-local ibuffer-formats all-the-icons-ibuffer-old-formats))))
 
 (provide 'all-the-icons-ibuffer)
 

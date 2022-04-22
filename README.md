@@ -32,7 +32,7 @@ Emacs](https://github.com/seagle0128/.emacs.d) and leverages
 From melpa, `M-x package-install RET all-the-icons-ibuffer RET`.
 
 ``` emacs-lisp
-(all-the-icons-ibuffer-mode 1)
+(add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
 ```
 
 ### Use-package
@@ -40,7 +40,7 @@ From melpa, `M-x package-install RET all-the-icons-ibuffer RET`.
 ``` emacs-lisp
 (use-package all-the-icons-ibuffer
   :ensure t
-  :init (all-the-icons-ibuffer-mode 1))
+  :hook (ibuffer-mode . all-the-icons-ibuffer-mode))
 ```
 
 To display icons correctly, you should run `M-x all-the-icons-install-fonts` to
