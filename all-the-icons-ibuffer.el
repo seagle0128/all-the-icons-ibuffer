@@ -75,6 +75,11 @@
   "Face used for the filename/process."
   :group 'all-the-icons-ibuffer)
 
+(defcustom all-the-icons-ibuffer-display-predicate #'display-graphic-p
+  "Predicate whether the icons are able to be displayed."
+  :group 'all-the-icons-ibuffer
+  :type 'boolean)
+
 (defcustom all-the-icons-ibuffer-icon t
   "Whether display the icons."
   :group 'all-the-icons-ibuffer
@@ -258,7 +263,7 @@ See `ibuffer-formats' for details."
   :lighter nil
   (when (derived-mode-p 'ibuffer-mode)
     (if all-the-icons-ibuffer-mode
-        (if (display-graphic-p)
+        (if (funcall all-the-icons-ibuffer-display-predicate)
             (setq-local ibuffer-formats all-the-icons-ibuffer-formats)
           (setq-local ibuffer-formats all-the-icons-ibuffer-formats-simple))
       (setq-local ibuffer-formats all-the-icons-ibuffer-old-formats))))

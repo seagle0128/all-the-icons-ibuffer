@@ -51,6 +51,8 @@ Enjoy! :smile:
 ## Customize
 
 ``` emacs-lisp
+; Predicate whether the icons are able to be displayed."
+(setq all-the-icons-ibuffer-display-predicate #'display-graphic-p)
 
 ;; Whether display the icons.
 (setq all-the-icons-ibuffer-icon t)
