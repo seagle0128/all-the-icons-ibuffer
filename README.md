@@ -10,13 +10,12 @@
 
 ## Table of Contents
 
-- [all-the-icons-ibuffer](#all-the-icons-ibuffer)
-  - [Install](#install)
-    - [Manual](#manual)
-    - [Use-package](#use-package)
-  - [Customize](#customize)
-  - [Screenshots](#screenshots)
-  - [Donate](#donate)
+- [Install](#install)
+  - [Manual](#manual)
+  - [Use-package](#use-package)
+- [Customize](#customize)
+- [Screenshots](#screenshots)
+- [Donate](#donate)
 
 <!-- markdown-toc end -->
 
@@ -32,13 +31,13 @@ Emacs](https://github.com/seagle0128/.emacs.d) and leverages
 
 From melpa, `M-x package-install RET all-the-icons-ibuffer RET`.
 
-``` emacs-lisp
+```emacs-lisp
 (add-hook 'ibuffer-mode-hook #'all-the-icons-ibuffer-mode)
 ```
 
 ### Use-package
 
-``` emacs-lisp
+```emacs-lisp
 (use-package all-the-icons-ibuffer
   :ensure t
   :hook (ibuffer-mode . all-the-icons-ibuffer-mode))
@@ -51,7 +50,7 @@ Enjoy! :smile:
 
 ## Customize
 
-``` emacs-lisp
+```emacs-lisp
 ; Predicate whether the icons are able to be displayed."
 (setq all-the-icons-ibuffer-display-predicate #'display-graphic-p)
 
@@ -83,8 +82,7 @@ all-the-icons-ibuffer-formats
 
 ## Screenshots
 
-![all-the-icons-ibuffer](https://user-images.githubusercontent.com/140797/97093181-65867b00-167c-11eb-816c-0a96d69dcb94.png
-"icons with ibuffer")
+![all-the-icons-ibuffer](https://user-images.githubusercontent.com/140797/97093181-65867b00-167c-11eb-816c-0a96d69dcb94.png "icons with ibuffer")
 
 ## Donate
 
