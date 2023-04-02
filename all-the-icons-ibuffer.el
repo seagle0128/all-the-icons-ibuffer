@@ -61,7 +61,7 @@
   :group 'all-the-icons-ibuffer)
 
 (defface all-the-icons-ibuffer-size-face
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit font-lock-constant-face)))
   "Face used for the size."
   :group 'all-the-icons-ibuffer)
 
@@ -71,7 +71,7 @@
   :group 'all-the-icons-ibuffer)
 
 (defface all-the-icons-ibuffer-file-face
-  '((t (:inherit font-lock-comment-face)))
+  '((t (:inherit completions-annotations)))
   "Face used for the filename/process."
   :group 'all-the-icons-ibuffer)
 
