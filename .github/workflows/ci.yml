@@ -29,9 +29,9 @@ jobs:
         with:
           version: ${{ matrix.emacs-version }}
 
-      - uses: conao3/setup-cask@master
+      - uses: cask/setup-cask@master
         with:
-          version: 0.8.8
+          version: 1.1.0
 
       - name: install
         run: "cask install"
