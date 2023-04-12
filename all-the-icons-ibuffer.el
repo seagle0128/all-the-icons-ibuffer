@@ -111,27 +111,7 @@ It respects `all-the-icons-color-icons'."
   `((mark modified read-only ,(if (>= emacs-major-version 26) 'locked "")
           ;; Here you may adjust by replacing :right with :center or :left
           ;; According to taste, if you want the icon further from the name
-          " " ,(if all-the-icons-ibuffer-icon
-                   '(icon 2 2 :left :elide)
-                 "")
-          ,(if all-the-icons-ibuffer-icon
-               (propertize " " 'display `(space :align-to 8))
-             "")
-          (name 18 18 :left :elide)
-          " " (size-h 9 -1 :right)
-          " " (mode+ 16 16 :left :elide)
-          " " filename-and-process+)
-    (mark " " (name 16 -1) " " filename))
-  "A list of ways to display buffer lines with `all-the-icons'.
-
-See `ibuffer-formats' for details."
-  :group 'all-the-icons-ibuffer
-  :type '(repeat sexp))
-
-(defcustom all-the-icons-ibuffer-formats-simple
-  `((mark modified read-only ,(if (>= emacs-major-version 26) 'locked "")
-          ;; Here you may adjust by replacing :right with :center or :left
-          ;; According to taste, if you want the icon further from the name
+          " " (icon 2 2)
           (name 18 18 :left :elide)
           " " (size-h 9 -1 :right)
           " " (mode+ 16 16 :left :elide)
@@ -164,33 +144,38 @@ See `ibuffer-formats' for details."
 
 ;; For alignment, the size of the name field should be the width of an icon
 (define-ibuffer-column icon
-  (:name "  " :inline t)
-  (let ((icon (cond ((and (buffer-file-name) (all-the-icons-auto-mode-match?))
-                     (all-the-icons-icon-for-file (file-name-nondirectory (buffer-file-name))
-                                                  :height all-the-icons-ibuffer-icon-size
-                                                  :v-adjust all-the-icons-ibuffer-icon-v-adjust))
-                    ((eq major-mode 'dired-mode)
-                     (all-the-icons-icon-for-dir (buffer-name)
+  (:name "" :inline t)
+  (if (and all-the-icons-ibuffer-icon
+           (funcall all-the-icons-ibuffer-display-predicate))
+      (let ((icon (cond
+                   ((and (buffer-file-name) (all-the-icons-auto-mode-match?))
+                    (all-the-icons-icon-for-file (file-name-nondirectory (buffer-file-name))
                                                  :height all-the-icons-ibuffer-icon-size
-                                                 :v-adjust all-the-icons-ibuffer-icon-v-adjust
-                                                 :face 'all-the-icons-ibuffer-dir-face))
-                    (t (all-the-icons-icon-for-mode major-mode
-                                                    :height all-the-icons-ibuffer-icon-size
-                                                    :v-adjust all-the-icons-ibuffer-icon-v-adjust)))))
-    (if (or (null icon) (symbolp icon))
-        (setq icon (all-the-icons-faicon "file-o"
-                                         :face (if all-the-icons-ibuffer-color-icon
-                                                   'all-the-icons-dsilver
-                                                 'all-the-icons-ibuffer-icon-face)
-                                         :height (* 0.9 all-the-icons-ibuffer-icon-size)
-                                         :v-adjust all-the-icons-ibuffer-icon-v-adjust))
-      (let* ((props (get-text-property 0 'face icon))
-             (family (plist-get props :family))
-             (face (if all-the-icons-ibuffer-color-icon
-                       (or (plist-get props :inherit) props)
-                     'all-the-icons-ibuffer-icon-face))
-             (new-face `(:inherit ,face :family ,family)))
-        (propertize icon 'face new-face)))))
+                                                 :v-adjust all-the-icons-ibuffer-icon-v-adjust))
+                   ((eq major-mode 'dired-mode)
+                    (all-the-icons-icon-for-dir (buffer-name)
+                                                :height all-the-icons-ibuffer-icon-size
+                                                :v-adjust all-the-icons-ibuffer-icon-v-adjust
+                                                :face 'all-the-icons-ibuffer-dir-face))
+                   (t
+                    (all-the-icons-icon-for-mode major-mode
+                                                 :height all-the-icons-ibuffer-icon-size
+                                                 :v-adjust all-the-icons-ibuffer-icon-v-adjust)))))
+        (concat
+         (if (or (null icon) (symbolp icon))
+             (setq icon (all-the-icons-faicon "file-o"
+                                              :face (if all-the-icons-ibuffer-color-icon
+                                                        'all-the-icons-dsilver
+                                                      'all-the-icons-ibuffer-icon-face)
+                                              :height (* 0.9 all-the-icons-ibuffer-icon-size)
+                                              :v-adjust all-the-icons-ibuffer-icon-v-adjust))
+           (if all-the-icons-ibuffer-color-icon
+               icon
+             (propertize icon 'face `(:inherit all-the-icons-ibuffer-icon-face
+                                      :family ,(plist-get (get-text-property 0 'face icon)
+                                                          :family)))))
+         (propertize " " 'display '((space :relative-width 0.5)))))
+    ""))
 
 ;; Human readable file size for ibuffer
 (define-ibuffer-column size-h
@@ -262,11 +247,10 @@ See `ibuffer-formats' for details."
   "Display icons for all buffers in ibuffer."
   :lighter nil
   (when (derived-mode-p 'ibuffer-mode)
-    (if all-the-icons-ibuffer-mode
-        (if (funcall all-the-icons-ibuffer-display-predicate)
-            (setq-local ibuffer-formats all-the-icons-ibuffer-formats)
-          (setq-local ibuffer-formats all-the-icons-ibuffer-formats-simple))
-      (setq-local ibuffer-formats all-the-icons-ibuffer-old-formats))))
+    (setq-local ibuffer-formats (if all-the-icons-ibuffer-mode
+                                    all-the-icons-ibuffer-formats
+                                  all-the-icons-ibuffer-old-formats))
+    (ibuffer-update nil t)))
 
 (provide 'all-the-icons-ibuffer)
 
