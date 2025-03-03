@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        emacs-version: [25.3, 26.3, 27.2, 28.2, 29.1]
+        emacs-version: [25.3, 26.3, 27.2, 28.2, 29.4, 30.1]
         experimental: [false]
         include:
           - emacs-version: 24.5
@@ -25,9 +25,9 @@ jobs:
       - name: setenv
         run: echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: purcell/setup-emacs@master
+      - uses: jcs090218/setup-emacs@master
         with:
           version: ${{ matrix.emacs-version }}
 
